@@ -46,5 +46,5 @@ ev:Connect(function()
 end)
 
 TextButton.MouseButton1Click:Connect(function()
-    fe = not fe
+    fe = false
 end)
