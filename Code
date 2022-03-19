@@ -1,0 +1,50 @@
+local ScreenGui = Instance.new("ScreenGui")
+local TextButton = Instance.new("TextButton")
+local UICorner = Instance.new("UICorner")
+
+
+ScreenGui.Parent = game.CoreGui
+ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+ScreenGui.ResetOnSpawn = false
+
+TextButton.Parent = ScreenGui
+TextButton.BackgroundColor3 = Color3.fromRGB(52, 52, 52)
+TextButton.Position = UDim2.new(0.707606971, 0, 0.604956269, 0)
+TextButton.Size = UDim2.new(0, 200, 0, 50)
+TextButton.Font = Enum.Font.SourceSans
+TextButton.Text = "On/Off"
+TextButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+TextButton.TextScaled = true
+TextButton.TextSize = 14.000
+TextButton.TextStrokeTransparency = 0.000
+TextButton.TextWrapped = true
+
+UICorner.Parent = TextButton
+local fe = true
+local s = workspace.SelectionBox
+local last_adornee = nil
+local ev = s.Changed
+function func()
+    last_adornee = s.Adornee.SurfaceGui
+    local text = last_adornee.TextLabel.Text
+    local tegs = string.upper(text):byte()
+    print(string.upper(text))
+    print(tegs)
+    wait(.1 * (math.random(1,15)/10))
+    keypress(tegs)
+    keyrelease(tegs)
+end
+ev:Connect(function()
+    if fe then
+        local a = s.Adornee:FindFirstChild('SurfaceGui')
+    if a ~= last_adornee then
+        func()
+    end
+    else
+        fe = true
+    end
+end)
+
+TextButton.MouseButton1Click:Connect(function()
+    fe = not fe
+end)
